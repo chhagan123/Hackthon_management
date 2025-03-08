@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [form, setForm] = useState({
     teamName: "",
+    collegeName: "",
     leaderName: "",
     leaderEmail: "",
     leaderPhone: "",
@@ -36,7 +37,7 @@ const Register = () => {
   };
 
   const addMember = () => {
-    if (form.members.length < 4) {
+    if (form.members.length < 3) {
       setForm((prev) => ({
         ...prev,
         members: [...prev.members, { name: "", email: "", phone: "", gender: "" }],
@@ -56,12 +57,6 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const hasFemale = form.members.some((member) => member.gender === "Female");
-    if (!hasFemale) {
-      alert("At least one team member must be female.");
-      return;
-    }
-
     if (!form.paymentScreenshot) {
       alert("Please upload a payment screenshot.");
       return;
@@ -80,10 +75,17 @@ const Register = () => {
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-lg w-full max-w-lg">
         <h2 className="text-2xl font-bold text-center text-blue-600 mb-4">Team Registration</h2>
 
-        {/* Team Name */}
+        {/* Team Name & College Name */}
         <input
           name="teamName"
           placeholder="Team Name"
+          onChange={handleChange}
+          className="w-full p-2 border rounded mb-3 text-base"
+          required
+        />
+        <input
+          name="collegeName"
+          placeholder="College Name"
           onChange={handleChange}
           className="w-full p-2 border rounded mb-3 text-base"
           required
@@ -112,7 +114,7 @@ const Register = () => {
               placeholder={`Member ${index + 1} Name`}
               onChange={handleChange}
               className="w-full p-2 border rounded mb-2"
-              required={index < 1} // Minimum 1 member mandatory
+              required={index < 1} // Minimum 1 member required
             />
             <input
               name={`member.${index}.email`}
@@ -147,7 +149,7 @@ const Register = () => {
         ))}
 
         {/* Add Member Button */}
-        {form.members.length < 4 && (
+        {form.members.length < 3 && (
           <button
             type="button"
             onClick={addMember}
