@@ -1,7 +1,3 @@
-
-
-
-
 import { Outlet } from "react-router-dom";
 import Sidebar from "../pages/Sidebar";
 import { useState } from "react";
@@ -9,13 +5,14 @@ import { FiMenu } from "react-icons/fi";
 
 const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
   return (
     <div className="flex h-screen">
       {/* Sidebar - Fixed Width & Responsive */}
       <div
-        className={`fixed top-0 left-0 h-full bg-blue-700 text-white p-4 transition-transform 
-          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 md:w-72 w-64 shadow-lg`}
+        className={`fixed top-0 left-0 h-full bg-blue-700 z-40  text-white p-4 transition-transform 
+          ${
+            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } md:translate-x-0 md:w-72 w-64  `}
       >
         <Sidebar role="teamLeader" />
       </div>
